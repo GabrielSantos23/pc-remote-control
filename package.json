@@ -1,0 +1,34 @@
+{
+  "name": "pc-remote-control",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "catalog": {
+      "dotenv": "^17.2.2",
+      "zod": "^4.1.13",
+      "typescript": "^5"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:native": "turbo -F native dev",
+    "dev:web": "turbo -F web dev"
+  },
+  "dependencies": {
+    "dotenv": "catalog:",
+    "zod": "catalog:",
+    "@pc-remote-control/env": "workspace:*"
+  },
+  "devDependencies": {
+    "turbo": "^2.6.3",
+    "typescript": "catalog:",
+    "@pc-remote-control/config": "workspace:*"
+  },
+  "packageManager": "bun@1.3.3"
+}
