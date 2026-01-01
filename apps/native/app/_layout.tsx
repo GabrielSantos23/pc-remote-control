@@ -5,6 +5,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 
 import { AppThemeProvider } from "@/contexts/app-theme-context";
+import { PCProvider } from "@/contexts/pc-context";
+import { SettingsProvider } from "@/contexts/settings-context";
+import { usePCStatus } from "@/hooks/use-pc-status";
 
 export const unstable_settings = {
   initialRouteName: "(drawer)",
@@ -14,9 +17,17 @@ function StackLayout() {
   return (
     <Stack screenOptions={{}}>
       <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-      <Stack.Screen name="modal" options={{ title: "Modal", presentation: "modal" }} />
+      <Stack.Screen
+        name="modal"
+        options={{ title: "Modal", presentation: "modal" }}
+      />
     </Stack>
   );
+}
+
+function AppContent() {
+  usePCStatus(); // Activate global polling
+  return <StackLayout />;
 }
 
 export default function Layout() {
@@ -25,7 +36,11 @@ export default function Layout() {
       <KeyboardProvider>
         <AppThemeProvider>
           <HeroUINativeProvider>
-            <StackLayout />
+            <PCProvider>
+              <SettingsProvider>
+                <AppContent />
+              </SettingsProvider>
+            </PCProvider>
           </HeroUINativeProvider>
         </AppThemeProvider>
       </KeyboardProvider>

@@ -2,16 +2,26 @@
   "expo": {
     "scheme": "pc-remote-control",
     "userInterfaceStyle": "automatic",
-    "orientation": "default",
+    "orientation": "portrait",
     "web": {
       "bundler": "metro"
     },
     "name": "pc-remote-control",
     "slug": "pc-remote-control",
-    "plugins": ["expo-font"],
+    "plugins": ["expo-font", "@bacons/apple-targets"],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "android": {
+      "package": "com.anonymous.pcremotecontrol"
+    },
+    "ios": {
+      "bundleIdentifier": "dev.gabs.pcremotecontrol",
+      "appleTeamId": "T2A8YY9YDW",
+      "entitlements": {
+        "com.apple.security.application-groups": ["group.gabs.pcremotecontrol"]
+      }
     }
   }
 }

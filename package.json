@@ -6,6 +6,10 @@
       "apps/*",
       "packages/*"
     ],
+    "nohoist": [
+      "**/react-native",
+      "**/react-native/**"
+    ],
     "catalog": {
       "dotenv": "^17.2.2",
       "zod": "^4.1.13",
@@ -18,12 +22,19 @@
     "build": "turbo build",
     "check-types": "turbo check-types",
     "dev:native": "turbo -F native dev",
-    "dev:web": "turbo -F web dev"
+    "dev:web": "turbo -F web dev",
+    "expo:ios": "turbo -F native ios",
+    "ios:full": "bun run --cwd apps/desktop-server start & turbo -F native ios",
+    "android:full": "bun run --cwd apps/desktop-server start & turbo -F native android"
   },
   "dependencies": {
+    "@pc-remote-control/env": "workspace:*",
+    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-navigation/native": "^7.1.26",
     "dotenv": "catalog:",
+    "lucide-react-native": "^0.562.0",
     "zod": "catalog:",
-    "@pc-remote-control/env": "workspace:*"
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "turbo": "^2.6.3",

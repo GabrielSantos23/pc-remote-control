@@ -1,0 +1,20 @@
+# Mutagen configuration for pc-remote-control
+sync:
+  defaults:
+    mode: "two-way-resolved"
+    ignore:
+      vcs: true
+      paths:
+        - "node_modules/"
+        - ".expo/"
+        - ".git/"
+        - ".turbo/"
+        - "android/build/"
+        - "ios/build/"
+        - "dist/"
+        - ".next/"
+        - "*.log"
+        - ".DS_Store"
+    permissions:
+      defaultFileMode: 0644
+      defaultDirectoryMode: 0755
