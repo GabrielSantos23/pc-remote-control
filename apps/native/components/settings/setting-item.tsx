@@ -1,18 +1,18 @@
 import { View, Text, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useThemeColor } from "heroui-native";
 
 interface SettingItemProps {
   icon?: React.ReactNode;
-  iconBg?: string; // e.g., "bg-orange-100"
+  iconBg?: string;
   label: string;
+  subtitle?: string;
   value?: string;
   hasArrow?: boolean;
   rightElement?: React.ReactNode;
   hasEdit?: boolean;
   hasExternalLink?: boolean;
   valueStyle?: string;
-  isDestructive?: boolean; // New prop for red text
+  isDestructive?: boolean;
   onPress?: () => void;
 }
 
@@ -20,6 +20,7 @@ export function SettingItem({
   icon,
   iconBg,
   label,
+  subtitle,
   value,
   hasArrow,
   rightElement,
@@ -29,31 +30,42 @@ export function SettingItem({
   isDestructive,
   onPress,
 }: SettingItemProps) {
-  const foregroundColor = useThemeColor("foreground");
-
   return (
     <Pressable
       onPress={onPress}
-      className="px-4 py-3.5 flex-row items-center justify-between active:bg-default-100 min-h-[56px]"
+      className="px-4 py-3.5 flex-row items-center justify-between active:bg-default-100 min-h-[60px]"
     >
-      <View className="flex-row items-center gap-3">
+      <View className="flex-row items-center flex-1 mr-2">
         {icon && (
           <View
-            className={`w-9 h-9 rounded-xl items-center justify-center ${
+            className={`w-9 h-9 rounded-xl items-center justify-center mr-3 ${
               iconBg || "bg-default-200"
             }`}
           >
             {icon}
           </View>
         )}
-        <Text
-          className={`text-[17px] font-medium`}
-          style={{ color: isDestructive ? "#ef4444" : foregroundColor }}
-        >
-          {label}
-        </Text>
+
+        {/* Label & Subtitle Container */}
+        <View className="flex-1 justify-center">
+          <Text
+            className={`text-[17px] font-medium ${
+              isDestructive ? "text-red-500" : "text-foreground"
+            }`}
+            numberOfLines={1}
+          >
+            {label}
+          </Text>
+          {subtitle && (
+            <Text className="text-muted text-[13px] leading-4 mt-0.5 pr-2">
+              {subtitle}
+            </Text>
+          )}
+        </View>
       </View>
-      <View className="flex-row items-center gap-2">
+
+      {/* Right Side Elements */}
+      <View className="flex-row items-center gap-2 pl-2">
         {value && (
           <Text className={`text-[17px] ${valueStyle || "text-muted"}`}>
             {value}

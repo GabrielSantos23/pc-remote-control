@@ -88,10 +88,6 @@ export default function SettingsScreen() {
           About
         </Text>
         <AboutSection />
-
-        <Text className="text-center text-muted text-xs opacity-40 mb-8 leading-5">
-          Designed for PC Remote Control{"\n"}© 2023 All Rights Reserved
-        </Text>
       </ScrollView>
     </View>
   );

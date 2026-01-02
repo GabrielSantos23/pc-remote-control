@@ -64,14 +64,14 @@ export function MainHeader() {
                 className={`w-2 h-2 rounded-full mr-1.5 ${
                   selectedPC?.status === "online"
                     ? "bg-success"
-                    : "bg-muted-foreground"
+                    : "bg-foreground/50"
                 }`}
               />
               <Text
                 className={`text-[10px] font-bold tracking-widest uppercase opacity-70 ${
                   selectedPC?.status === "online"
                     ? "text-foreground"
-                    : "text-muted-foreground"
+                    : "text-foreground/50"
                 }`}
               >
                 {selectedPC?.status === "online" ? "Connected" : "Disconnected"}

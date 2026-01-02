@@ -1,8 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
-import { NativeTabs, Icon, Label } from "expo-router/unstable-native-tabs";
+import {
+  NativeTabs,
+  Icon,
+  Label,
+  VectorIcon,
+} from "expo-router/unstable-native-tabs";
 import { useThemeColor } from "heroui-native";
+import { Platform } from "react-native";
 import React from "react";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Layout() {
   const themeColorForeground = useThemeColor("foreground");
@@ -11,12 +16,19 @@ export default function Layout() {
     <NativeTabs>
       <NativeTabs.Trigger name="index">
         <Label>Home</Label>
-        <Icon sf={{ default: "house", selected: "house.fill" }} />
+        {Platform.select({
+          ios: <Icon sf={{ default: "house", selected: "house.fill" }} />,
+          android: <Icon src={<VectorIcon family={Ionicons} name="home" />} />,
+        })}
       </NativeTabs.Trigger>
-
       <NativeTabs.Trigger name="settings">
         <Label>Settings</Label>
-        <Icon sf={{ default: "gearshape", selected: "gearshape.fill" }} />
+        {Platform.select({
+          ios: <Icon sf={{ default: "gear", selected: "gear" }} />,
+          android: (
+            <Icon src={<VectorIcon family={Ionicons} name="settings" />} />
+          ),
+        })}
       </NativeTabs.Trigger>
     </NativeTabs>
   );

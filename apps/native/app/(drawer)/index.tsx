@@ -13,6 +13,7 @@ import {
 import { usePC } from "@/contexts/pc-context";
 import { wakeOnLan } from "@/utils/wol";
 import { useSettings } from "@/contexts/settings-context";
+import { useNotifications } from "@/contexts/notifications-context";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MainHeader } from "@/components/main-header";
 import { LinearGradient } from "expo-linear-gradient";
@@ -21,6 +22,7 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const { selectedPC } = usePC();
   const { autoConnectEnabled, triggerHaptic } = useSettings();
+  const { sendNotification, settings } = useNotifications();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -83,6 +85,15 @@ export default function HomeScreen() {
     try {
       await wakeOnLan(selectedPC.mac);
       Alert.alert("Sent", "Wake-on-LAN packet sent.");
+
+      // Send notification if enabled
+      if (settings.onlineAlert) {
+        await sendNotification(
+          "Wake-on-LAN Sent",
+          `Wake command sent to ${selectedPC.name}. Waiting for device to come online...`,
+          { pcId: selectedPC.id, type: "wol" }
+        );
+      }
     } catch (err: any) {
       Alert.alert("Error", `Failed to send WoL: ${err.message}`);
     }
@@ -148,9 +159,7 @@ export default function HomeScreen() {
               }}
               className="flex-1 active:opacity-80"
             >
-              {/* Borda Zinc bem sutil */}
-              <Surface className="bg-card rounded-3xl h-full items-start justify-between p-5 border border-zinc-500/20 overflow-hidden relative">
-                {/* Glow Cinza/Azulado (Zinc) - Bem fraco (0.08) - Canto Inferior Direito */}
+              <Surface className="bg-card! rounded-3xl h-full items-start justify-between p-5 border border-zinc-500/20 overflow-hidden relative">
                 <LinearGradient
                   colors={["rgba(113, 113, 122, 0.08)", "transparent"]}
                   start={{ x: 1, y: 1 }}
@@ -172,7 +181,6 @@ export default function HomeScreen() {
               </Surface>
             </Pressable>
 
-            {/* Sleep */}
             <Pressable
               onPress={() => {
                 triggerHaptic();
@@ -180,9 +188,7 @@ export default function HomeScreen() {
               }}
               className="flex-1 active:opacity-80"
             >
-              {/* Borda Indigo sutil */}
-              <Surface className="bg-card rounded-3xl h-full items-start justify-between p-5 border border-indigo-500/20 overflow-hidden relative">
-                {/* Glow Indigo/Roxo - Bem fraco (0.08) - Canto Inferior Direito */}
+              <Surface className="bg-card! rounded-3xl h-full items-start justify-between p-5 border border-indigo-500/20 overflow-hidden relative">
                 <LinearGradient
                   colors={["rgba(99, 102, 241, 0.08)", "transparent"]}
                   start={{ x: 1, y: 1 }}
@@ -205,9 +211,7 @@ export default function HomeScreen() {
             </Pressable>
           </View>
 
-          {/* Second Row */}
           <View className="flex-row gap-4 flex-1 mb-8">
-            {/* Reboot */}
             <Pressable
               onPress={() => {
                 triggerHaptic();
@@ -215,8 +219,7 @@ export default function HomeScreen() {
               }}
               className="flex-1 active:opacity-80"
             >
-              <Surface className="bg-card rounded-3xl h-full items-start justify-between p-5 border border-amber-500/20 overflow-hidden relative">
-                {/* Glow Laranja - Canto Inferior Direito */}
+              <Surface className="bg-card! rounded-3xl h-full items-start justify-between p-5 border border-amber-500/20 overflow-hidden relative">
                 <LinearGradient
                   colors={["rgba(245, 158, 11, 0.15)", "transparent"]}
                   start={{ x: 1, y: 1 }}
@@ -238,7 +241,6 @@ export default function HomeScreen() {
               </Surface>
             </Pressable>
 
-            {/* Shutdown */}
             <Pressable
               onPress={() => {
                 triggerHaptic();
@@ -246,8 +248,7 @@ export default function HomeScreen() {
               }}
               className="flex-1 active:opacity-80"
             >
-              <Surface className="bg-card rounded-3xl h-full items-start justify-between p-5 border border-red-500/20 overflow-hidden relative">
-                {/* Glow Vermelho - Canto Inferior Direito */}
+              <Surface className="bg-card! rounded-3xl h-full items-start justify-between p-5 border border-red-500/20 overflow-hidden relative">
                 <LinearGradient
                   colors={["rgba(239, 68, 68, 0.15)", "transparent"]}
                   start={{ x: 1, y: 1 }}
@@ -271,7 +272,6 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        {/* Footer */}
         <View className="items-center flex-row justify-center pb-4 opacity-40">
           <MaterialCommunityIcons
             name="shield-check"

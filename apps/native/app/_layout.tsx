@@ -3,10 +3,10 @@ import { Stack } from "expo-router";
 import { HeroUINativeProvider } from "heroui-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
-
 import { AppThemeProvider } from "@/contexts/app-theme-context";
 import { PCProvider } from "@/contexts/pc-context";
 import { SettingsProvider } from "@/contexts/settings-context";
+import { NotificationsProvider } from "@/contexts/notifications-context";
 import { usePCStatus } from "@/hooks/use-pc-status";
 
 export const unstable_settings = {
@@ -15,12 +15,15 @@ export const unstable_settings = {
 
 function StackLayout() {
   return (
-    <Stack screenOptions={{}}>
+    <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
       <Stack.Screen
         name="modal"
         options={{ title: "Modal", presentation: "modal" }}
       />
+      <Stack.Screen name="about" options={{ presentation: "modal" }} />
+      <Stack.Screen name="add-pc" options={{ presentation: "modal" }} />
+      <Stack.Screen name="edit-pc" options={{ presentation: "modal" }} />
     </Stack>
   );
 }
@@ -38,7 +41,9 @@ export default function Layout() {
           <HeroUINativeProvider>
             <PCProvider>
               <SettingsProvider>
-                <AppContent />
+                <NotificationsProvider>
+                  <AppContent />
+                </NotificationsProvider>
               </SettingsProvider>
             </PCProvider>
           </HeroUINativeProvider>

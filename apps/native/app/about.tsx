@@ -20,7 +20,7 @@ export default function AboutScreen() {
 
   return (
     <View className="flex-1" style={{ backgroundColor }}>
-      <Stack.Screen options={{ headerShown: false, presentation: "modal" }} />
+      <Stack.Screen options={{ headerShown: false, presentation: "card" }} />
 
       {/* --- Floating Glass Back Button --- */}
       <View
@@ -137,7 +137,11 @@ export default function AboutScreen() {
           <Pressable
             className="rounded-[20px] p-4 flex-row items-center justify-between mb-3"
             style={{ backgroundColor: surfaceColor }}
-            onPress={() => Linking.openURL("https://github.com")}
+            onPress={() =>
+              Linking.openURL(
+                "https://github.com/GabrielSantos23/pc-remote-control"
+              )
+            }
           >
             <View className="flex-row items-center gap-3">
               <Ionicons name="logo-github" size={20} color={foregroundColor} />

@@ -5,6 +5,7 @@ import { useAppTheme } from "../../contexts/app-theme-context";
 import { useSettings } from "../../contexts/settings-context";
 import { SettingItem } from "./setting-item";
 import { Vibrate } from "lucide-react-native";
+import { router } from "expo-router";
 
 export function PreferencesSection() {
   const { hapticsEnabled, setHapticsEnabled } = useSettings();
@@ -13,7 +14,7 @@ export function PreferencesSection() {
   const surfaceColor = useThemeColor("surface");
 
   return (
-    <View className="mb-8">
+    <View className="mb-8 bg-background">
       <Text className="text-muted font-semibold text-[13px] tracking-wider uppercase mb-2 px-1">
         App Preferences
       </Text>
@@ -27,6 +28,7 @@ export function PreferencesSection() {
           iconBg="bg-orange-100"
           label="Notifications"
           hasArrow
+          onPress={() => router.push("/notifications")}
         />
 
         <View className="h-[1px] ml-16 bg-foreground/10" />

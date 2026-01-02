@@ -8,7 +8,16 @@
     },
     "name": "pc-remote-control",
     "slug": "pc-remote-control",
-    "plugins": ["expo-font", "@bacons/apple-targets"],
+    "plugins": [
+      "expo-font",
+      "@bacons/apple-targets",
+      [
+        "expo-notifications",
+        {
+          "color": "#3b82f6"
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
@@ -20,7 +29,31 @@
       "bundleIdentifier": "dev.gabs.pcremotecontrol",
       "appleTeamId": "T2A8YY9YDW",
       "entitlements": {
-        "com.apple.security.application-groups": ["group.gabs.pcremotecontrol"]
+        "com.apple.security.application-groups": [
+          "group.gabs.pcremotecontrol"
+        ]
+      }
+    },
+    "extra": {
+      "eas": {
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "bundleIdentifier": "dev.gabs.pcremotecontrol.widget",
+                  "targetName": "widget",
+                  "entitlements": {
+                    "com.apple.security.application-groups": [
+                      "group.gabs.pcremotecontrol"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "projectId": "8d07a2a8-6337-4209-b1a5-e250a4e8d579"
       }
     }
   }
